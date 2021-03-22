@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HOMEWORK7</title>
+</head>
+
+<body>
+    <p id ='text'>I learning JavaScript events!</p> 
+<div>
+	<button type= "button" id ="styleBtn" >Change style!</button>
+</div>
+ <p>
+
+ </p>
+<div>
+	<button type= "button" id ="firstBtn" >Click to make page blue</button>
+    <button type= "button" id ="secondBtn">Double-click to make the page pink</button>
+    <button type= "button" id ="thirdBtn">Click & hold to male the page brown</button>
+    <a type= "link" id ="myLink" href="http://site.com">Hover over to make a page yellow</a>
+</div>
+<p>
+
+</p>
+<div>
+   <select id="names">
+      <option>Peter</option>
+      <option>John</option>
+      <option>Alise</option>
+      <option>Alex</option>
+      <option>Iren</option>
+  </select>
+
+  <button type ="button" id ="delBtn">Choose and Delete </button>
+</div>
+<p>
+
+</p>
+<div>
+<button type ="button" id ="liveBtn">Live button!</button>
+</div>
+<div id = "live">
+
+</div>
+
+
+<select name="country" id="country" onclick="addCitiesList()">
+	<option value="ger">Germany</option>
+	<option value="usa">USA</option>
+	<option value="ukr">Ukraine</option>
+</select>
+                    
+<select name="cities" id="cities"></select>
+<p id ="placeOfOutput"> </p>
+
+
+<script>
+//====== Task1======  
+//I set longer delay because window was closed very quickly
+// let myWin = window.open("about:blank","","width=300, height=300");
+// setTimeout(() => myWin.resizeTo('500','500'), 2000);
+// setTimeout(() => myWin.moveTo('200','200'), 5000);
+// setTimeout(() => myWin.close(), 8000);
+
+//====== Task2======
+document.getElementById("styleBtn").onclick = function (){
+    let pElem = document.getElementById("text");
+    pElem.style.fontFamily = "Comic Sans MS";
+    pElem.style.fontSize = "20px";
+    pElem.style.color = "orange";
+}
+//====== Task3======
+document.getElementById("firstBtn").onclick = function (){
+   document.body.style.background = "blue";}
+
+document.getElementById("secondBtn").ondblclick  = function (){
+   document.body.style.background = "pink";}
+   
+document.getElementById("thirdBtn").onmousedown = function (){
+   document.body.style.background = "brown";}
+document.getElementById("thirdBtn").onmouseup = function (){
+   document.body.style.background = "white";}  
+   
+document.getElementById("myLink").onmouseover = function (){
+   document.body.style.background = "yellow";}
+document.getElementById("myLink").onmouseout = function (){
+   document.body.style.background = "white";}
+
+//====== Task4======
+
+let delButton = document.getElementById("delBtn");
+delButton.addEventListener("click", elementRemove);
+
+function elementRemove(){
+         // индекс выбранного элемента
+   let selectedIndex = document.getElementById("names").options.selectedIndex;
+         // удаляем элемент 
+      document.getElementById("names").options[selectedIndex]=null;
+}
+   
+//====== Task5======
+
+let liveButton = document.getElementById("liveBtn");
+liveButton.addEventListener("click", message);
+liveButton.addEventListener("mouseover", messageOver);
+liveButton.addEventListener("mouseout", messageOut);
+
+let messagePlace = document.getElementById("live");
+
+function message(){
+   messagePlace.insertAdjacentHTML('afterend', '<p>I was pressed!</p>');
+//messagePlace.innerHTML ="I was pressed!";
+};
+function messageOver(){
+   messagePlace.insertAdjacentHTML('afterend', '<p>Mouse on me!</p>');  
+// messagePlace.innerHTML ="Mouse on me!";
+};
+
+function messageOut(){
+   messagePlace.insertAdjacentHTML('afterend', '<p>Mouse is NOT on me!</p>');    
+//messagePlace.innerHTML = "Mouse is NOT on me!";
+};
+
+//====== Task6======
+let onresize = function() {
+
+   width = document.body.clientWidth
+   height = document.body.clientHeight;
+
+   // width = window.screen.width;
+   // height = window.screen.height;
+
+   document.write("width: " + width, " ", "height: " + height);
+}
+ window.addEventListener("resize", onresize);
+ onresze();
+//====== Task7======
+
+function addCitiesList(){ 
+let select = document.getElementById("cities"); //new list that depends on selected option in "countries" list
+//console.log(select);
+let germany = ["Berlin", "Dusseldorf", "Weisbaden", "Bonn"]; // set of data for new list (select)
+let usa = ["New-York", "Washington", "Boston", "Chikago"]; 
+let ukr = ["Kyiv", "Dnipro", "Lviv", "Odessa"];
+
+let country = document.getElementById("country");
+//console.log(country);
+
+let selectedInd = country.options.selectedIndex // index of element that is selected in list
+//console.log(selectedInd);
+
+if (selectedInd == 0) {
+   select.options.length = 0;
+   for (let i = 0; i < germany.length; i++){
+    let opt = germany[i];
+    let el = document.createElement("option");
+    el.textContent = opt;
+    el.value = opt;
+    select.appendChild(el);
+   };  
+} else if (selectedInd == 1) {
+   select.options.length = 0;
+   for (let i = 0; i < usa.length; i++){
+    let opt = usa[i];
+    let el = document.createElement("option");
+    el.textContent = opt;
+    el.value = opt;
+    select.appendChild(el)}
+}else if (selectedInd == 2) {
+   select.options.length = 0;
+   for (let i = 0; i < ukr.length; i++){
+    let opt = ukr[i];
+    let el = document.createElement("option");
+    el.textContent = opt;
+    el.value = opt;
+    select.appendChild(el)}
+   };
+};
+ 
+
+</script> 
+</body>
+</html>  
