@@ -43,15 +43,17 @@
 
 </div>
 
+<p id ="result"></p>
 
-<select name="country" id="country" onclick="addCitiesList()">
+<select name="country" id="country">
 	<option value="ger">Germany</option>
 	<option value="usa">USA</option>
 	<option value="ukr">Ukraine</option>
 </select>
                     
 <select name="cities" id="cities"></select>
-<p id ="placeOfOutput"> </p>
+<p id="placeOfOutput"></p>
+
 
 
 <script>
@@ -122,30 +124,31 @@ function messageOut(){
 };
 
 //====== Task6======
-let onresize = function() {
+function onresize() {
+let   width = window.innerWidth;
+let   height = window.innerHeight;
 
-   width = document.body.clientWidth
-   height = document.body.clientHeight;
-
-   // width = window.screen.width;
-   // height = window.screen.height;
-
-   document.write("width: " + width, " ", "height: " + height);
+let size = "width: " + width + ", " + "height: " + height;
+document.getElementById("result").innerHTML= size;
 }
  window.addEventListener("resize", onresize);
- onresze();
-//====== Task7======
 
-function addCitiesList(){ 
-let select = document.getElementById("cities"); //new list that depends on selected option in "countries" list
-//console.log(select);
+//====== Task7======
 let germany = ["Berlin", "Dusseldorf", "Weisbaden", "Bonn"]; // set of data for new list (select)
 let usa = ["New-York", "Washington", "Boston", "Chikago"]; 
 let ukr = ["Kyiv", "Dnipro", "Lviv", "Odessa"];
 
-let country = document.getElementById("country");
-//console.log(country);
 
+let country = document.getElementById("country");
+country.addEventListener("click", addCitiesList);
+country.addEventListener("click", textOutput);
+
+let select = document.getElementById("cities");
+select.addEventListener("click", textOutput);
+
+function addCitiesList(){ 
+
+select.innerHTML ='';
 let selectedInd = country.options.selectedIndex // index of element that is selected in list
 //console.log(selectedInd);
 
@@ -177,7 +180,11 @@ if (selectedInd == 0) {
    };
 };
  
-
+let paragraf = document.querySelector('#placeOfOutput')
+function textOutput(){
+   paragraf.innerHTML ='';
+   paragraf.innerHTML = country.options[country.selectedIndex].text +', ' + select.options[select.selectedIndex].text;
+}
 </script> 
 </body>
 </html>  
